@@ -109,7 +109,15 @@ function part_1(obr1, tran1, tran2, obr2, parent){ // x, y, z
     // var asdfg = Rematrix.identity()
 
     // console.dir([a,b,c,d].reduce(Rematrix.multiply));
+    // return
   }
+  this.rtMatrixUser = function(inp){
+      // var r11, r12, r13, r21, r22, r23, r31, r32, r33, tx,  tz , ty , s;
+      // console.log(inp);
+
+       applyMatrix(...inp);
+  }
+
 
   this.updateDh = function(newDh){
     switch(arguments.length) {
@@ -123,7 +131,11 @@ function part_1(obr1, tran1, tran2, obr2, parent){ // x, y, z
     var c = Rematrix.translate3d(this.dhArray[2],0,0)
     var d = Rematrix.rotateX(this.dhArray[3]);
     this.rtMatrix = [a,b,c,d].reduce(Rematrix.multiply);
-    applyDataToMatrixRT(this.rtMatrix)
+    applyDataToMatrixRT()
+  }
+
+  this.updateRtMatrix = function(inp){
+    this.rtMatrix = inp;
   }
 
   //
@@ -135,15 +147,6 @@ function part_1(obr1, tran1, tran2, obr2, parent){ // x, y, z
   //                 tx,  ty , tz , s   );
   // }
 
-  this.rtMatrixUser = function(inp){
-    // var r11, r12, r13, r21, r22, r23, r31, r32, r33, tx,  tz , ty , s;
-    // console.log(inp);
-
-     applyMatrix(...inp);
-  }
-  this.updateRtMatrix = function(inp){
-    this.rtMatrix = inp;
-  }
 
   // this.rt = function(){
   //  applyMatrix.apply(this, this.rtMatrix);
@@ -155,11 +158,20 @@ function part_1(obr1, tran1, tran2, obr2, parent){ // x, y, z
   // }
 }
 
-function applyDataToMatrixRT(v){
+function applyDataToMatrixRT(){
+  var tab = []
+  for (var part in partGroup)
+  {
+    // console.log(part);
+      tab.push(partGroup[part].rtMatrix);
+  }
+
+  tab = tab.reduce(Rematrix.multiply);
+  console.log(tab);
   for (var i = 0; i <4; i++)
   {
       for (var j = 0; j <4; j++){
-          inputGroup[i*4+j].value(v[j*4+i]);
+          inputGroup[i*4+j].value( (Math.round(Number(tab[j*4+i])).toString()) );
       }
   }
 }
