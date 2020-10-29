@@ -37,8 +37,15 @@ function part_1(obr1, tran1, tran2, obr2, parent){ // x, y, z
 
   this.id = id;
   // id++;
-
-  if(obr1.constructor === Array){
+  console.log(obr1)
+  if(typeof(obr1) == "undefined"){
+      this.dhArray = [];
+      this.dhArray[0] = 0;
+      this.dhArray[1] = 0;
+      this.dhArray[2] = 0;
+      this.dhArray[3] = 0;
+  }
+  else if(obr1.constructor === Array){
     console.log(obr1)
     this.dhArray = obr1;
   }
@@ -84,6 +91,7 @@ function part_1(obr1, tran1, tran2, obr2, parent){ // x, y, z
     var c = Rematrix.translate3d(this.dhArray[2],0,0)
     var d = Rematrix.rotateX(this.dhArray[3]);
     this.rtMatrix = [a,b,c,d].reduce(Rematrix.multiply);
+    console.dir(this.rtMatrix)
     // applyDataToMatrixRT()
   }
 
@@ -194,19 +202,28 @@ function rtButtonPressed(){
 
 function changeValueOfArrayDh(){
   console.dir(this);
-  dhInputValue[this.idPart][this.idX] = this.value();
-  for ( var x in dhInputValue[this.idPart]){
-    if(this.idPart < id){
-      partGroup[this.idPart].dhArray[this.idX] = Number(this.value());
-      partGroup[this.idPart].updateDh()
-    }
+  // dhInputValue[this.idPart][this.idX] = this.value();
+  if(this.idPart < id){
+    partGroup[this.idPart].dhArray[this.idX] = Number(this.value());
+    partGroup[this.idPart].updateDh()
   }
+}
+
+
+function changeAllValueOfArrayDh(idT){
+  for ( var x in dhInput[idT])
+  {
+      partGroup[idT].dhArray[x] = Number(dhInput[idT][x].value());
+  }
+  partGroup[idT].updateDh()
 }
 
 function addPart(){
   // moveAddbutton();
-  var tempPart = new part_1(dhInputValue[id]);
+  var tempPart = new part_1();
   partGroup.push(tempPart);
+  changeAllValueOfArrayDh(id);
+
 
   createMatrixRT(width, 0, 40, 30);
 
