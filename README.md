@@ -6,7 +6,7 @@ Since project is change to work with GitHub Pages main folder with node.js is le
 You can play with it **([HERE](https://cvaniak.github.io/Lator/public/))**
 
 <p align="left">
-  <img src="https://github.com/Cvaniak//Lator/Images/Rotating.gif" width="600" title="Manilulator goes brrrr">
+  <img src="https://github.com/Cvaniak/Lator/blob/master/Images/Rotating.gif" width="600" title="Manilulator goes brrrr">
 </p>
 
 ## TODO
