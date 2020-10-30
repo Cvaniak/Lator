@@ -269,9 +269,7 @@ let dhInputValue = [];
 // partGroup[2] = new part_1(0,0,30,0);
 var a0 = new axis0();
 
-let myFont;
 function preload() {
-    myFont = loadFont("./data/Inconsolata.ttf");
 }
 
 function setup() {
